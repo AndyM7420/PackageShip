@@ -1,11 +1,11 @@
 public class Address {
         private String numStreet;
         private String name;
-        private int apartNum;
+        private String apartNum;
         private String city;
         private String state;
         private int zip;
-    public Address(String numStreet, String name, int apartNum, String city, String state,int zip){
+    public Address(String numStreet, String name, String apartNum, String city, String state,int zip){
         this.numStreet = numStreet;
         this.name = name;
         this.apartNum = apartNum;
@@ -24,8 +24,18 @@ public class Address {
     }
     public Address(String full) {
         numStreet = full.substring(0, full.indexOf(" "));
-        full=full.substring(full.indexOf(" "));
-        name = full.substring(0, full.indexOf(" "));
+        full=full.substring(full.indexOf(" ")+1);
+        name = full.substring(0, full.indexOf("Apt"));
+        full=full.substring(full.indexOf("Apt")+4);
+        apartNum=full.substring(0,full.indexOf(" ")-1);
+        full=full.substring(full.indexOf(", ")+1);
+        city=full.substring(0, full.indexOf(","));
+        full=full.substring(full.indexOf(", ")+1);
+        state=full.substring(0,full.indexOf(" ")+1);
+        full=full.substring(full.indexOf(" ")+1);
+        zip=Integer.parseInt(full.substring(full.indexOf(" ")+1));
+
+
     }
 
         public String getNumStreet () {
@@ -44,11 +54,11 @@ public class Address {
         this.name = name;
     }
 
-        public int getApartNum () {
+        public String getApartNum () {
         return apartNum;
     }
 
-        public void setApartNum ( int apartNum){
+        public void setApartNum ( String apartNum){
         this.apartNum = apartNum;
     }
 
@@ -76,6 +86,6 @@ public class Address {
         this.zip = zip;
     }
     public String toString(){
-    return numStreet+" "+name;
+    return numStreet+" "+name+apartNum+city+" "+state+zip;
     }
 }
